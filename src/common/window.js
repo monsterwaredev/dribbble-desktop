@@ -35,7 +35,7 @@ Window.prototype.template = function(name) {
     this.get('window').loadUrl('file://' + __dirname + '/../../static/templates/' + name + '.html');
 };
 
-Window.prototype.dev = function() {
+Window.prototype.debug = function() {
     this.get('window').webContents.openDevTools();
 };
 
