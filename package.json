@@ -2,9 +2,9 @@
     "name": "dribbble-desktop",
     "version": "1.0.0",
     "description": "A Dribbble desktop application written in Node.js and Electron",
-    "main": "main.js",
+    "main": "src/loader.js",
     "scripts": {
-        "start": "electron main.js"
+        "start": "electron src/loader.js"
     },
     "repository": {
         "type": "git",
