@@ -4,7 +4,7 @@
     "description": "A Dribbble desktop application written in Node.js and Electron",
     "main": "src/loader.js",
     "scripts": {
-        "start": "electron src/loader.js"
+        "start": "utility/compile-less.bash && electron src/loader.js"
     },
     "repository": {
         "type": "git",
