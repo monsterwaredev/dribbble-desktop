@@ -21,6 +21,11 @@ var View = function View(options) {
     if (typeof this.controller === 'function') {
         this.controller();
     }
+    // Set debugging mode
+    this.set('debugging', true);
+    // Set intialized status
+    this.set('initialized', false);
+    // Return self object
     return this;
 };
 
