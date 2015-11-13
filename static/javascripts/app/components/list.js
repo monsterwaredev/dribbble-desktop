@@ -20,8 +20,23 @@ List.prototype.controller = function(opts) {
 };
 
 List.prototype.view = function() {
-    return m('ul', [
+    return m('div', [
+        ((typeof this.get('name') === 'string' && this.get('name').trim().length > 0) ? m('h5', {
+            class: [
+                'dribbble-component',
+                'component-list',
+                'list-title'
+            ].join(' ')
+        }, this.get('name')) : undefined),
+        ((typeof this.get('items') === 'object' && this.get('items') instanceof Array && this.get('items').length > 0) ? m('ul', {
+            class: [
+                'dribbble-component',
+                'component-list',
+                'list-items-container'
+            ].join(' ')
+        }, [
 
+        ]) : undefined)
     ]);
 };
 

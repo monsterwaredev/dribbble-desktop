@@ -53,6 +53,11 @@ Sidebar.prototype.controller = function(opts) {
             placeholder: 'Filter buckets'
         }));
         this.set('ui.component.buckets', new App.Components.List({
+            name: 'Buckets',
+            items: [
+                new App.Components.ListItem({
+                })
+            ]
         }));
     }
 };
