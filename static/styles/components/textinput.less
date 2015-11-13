@@ -1,0 +1,25 @@
+
+@import "../core/color.less";
+
+@component-input-default-font-size: 13px;
+@component-input-default-placeholder-font-size: 11px;
+
+.component-textinput {
+    font-family: "Montserrat";
+    font-size: @component-input-default-font-size;
+}
+
+.component-textinput.textinput-element {
+    padding: 4px 10px;
+    width: calc(~'100% - 20px');
+    color: #000;
+    border-color: #eee;
+}
+
+.component-textinput.textinput-placeholder {
+    font-size: @component-input-default-placeholder-font-size;
+    font-weight: bold;
+    letter-spacing: 1px;
+    padding: 0 10px;
+    width: calc(~'100% - 20px');
+}
