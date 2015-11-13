@@ -1,0 +1,44 @@
+
+@import "../core/color.less";
+
+@component-button-default-size: 15px;
+@component-button-default-offset: 15px;
+@component-button-default-material-offset: 25px;
+@component-button-default-padding: 3px 6px;
+@component-button-default-font-size: 13px;
+
+.component-button {
+    margin:0;
+    padding:@component-button-default-padding;
+    font-family: "Montserrat";
+    font-size: @component-button-default-font-size;
+}
+
+.component-button.button-element {
+    height: @component-button-default-size + @component-button-default-offset;
+    color: @color-green;
+    font-weight: bold;
+    border:none;
+    outline:none;
+    background-color: transparent;
+    &.mdl-button {
+        padding:0;
+        height: @component-button-default-size + @component-button-default-material-offset;
+    }
+}
+
+.component-button .button-text {
+    display: inline-block;
+    vertical-align: middle;
+    letter-spacing: 2px;
+}
+
+.component-button .button-icon {
+    margin:-2px 0 0 6px;
+    padding: 0px;
+    width: @component-button-default-size;
+    height: @component-button-default-size;
+    background-color: @color-green;
+    display: inline-block;
+    vertical-align: middle;
+}
