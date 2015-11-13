@@ -20,7 +20,12 @@ Button.prototype.controller = function(opts) {
 Button.prototype.view = function() {
     return m('button', {
         class: 'dribbble-component component-button button-element mdl-button mdl-js-button mdl-js-ripple-effect',
-        style: this.get('style') ? this.get('style') : ''
+        style: this.get('style') ? this.get('style') : '',
+        onclick: function(e) {
+            if (typeof this.get('events') === 'object' && typeof this.get('events').onclick === 'function') {
+                this.get('events').onclick.call(this, e);
+            }
+        }.bind(this)
     }, [
         ((typeof this.get('icon') === 'string' && this.get('icon').trim().length > 0) ? m('div', {
             style: [

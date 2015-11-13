@@ -28,17 +28,18 @@ Sidebar.prototype.controller = function(opts) {
             menu : [
                 {
                     attributes: {
-                        name: 'Bucket'
-                    },
-                    events: {
-                        click: function(e) {
+                        name: 'Bucket',
+                        events: {
+                            onclick: function(e) {
+                            }
                         }
                     }
                 }
-            ]
-        },
-        events: {
-            click: function(e) {
+            ],
+            events: {
+                onclick: function(e) {
+                    console.log(this);
+                }
             }
         }
     });
