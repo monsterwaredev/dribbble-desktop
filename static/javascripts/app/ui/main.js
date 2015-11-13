@@ -14,15 +14,14 @@ MainUI.prototype.controller = function() {
     // Link stylesheet
     this.stylesheet(['core/application.css', 'ui/main.css']);
     // Create and modifiy element
-    this.set('ui.component.sidebar', {
-        el: new App.Components.Sidebar,
-        attributes: { }
-    });
+    this.set('ui.component.sidebar', new App.Components.Sidebar({
+
+    }));
 };
 
 MainUI.prototype.view = function() {
     return [
-        m.component(this.get('ui.component.sidebar').el, this.get('ui.component.sidebar').attributes)
+        m.component(this.get('ui.component.sidebar'))
 
     ];
 };
