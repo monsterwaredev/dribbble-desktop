@@ -26,6 +26,10 @@ var Base = function Base(options) {
     }
     // Init EventEmitter
     EventEmitter.call(this);
+    // Set debugging mode
+    this.set('debugging', true);
+    // Set intialized status
+    this.set('initialized', false);
     return this;
 };
 
