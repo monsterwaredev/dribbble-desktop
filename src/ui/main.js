@@ -9,6 +9,7 @@ var MainUI = function MainUI(options) {
     Window.call(this, options);
     // Set template
     this.template('main');
+    this.debug();
     return this;
 };
 
