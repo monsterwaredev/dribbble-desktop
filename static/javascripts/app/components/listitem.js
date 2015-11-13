@@ -20,8 +20,14 @@ ListItem.prototype.controller = function(opts) {
 };
 
 ListItem.prototype.view = function() {
-    return m('li', [
-
+    return m('li', {
+        class: [
+            'dribbble-component',
+            'component-listitem',
+            'listitem-element'
+        ].join(' ')
+    }, [
+        this.get('name')
     ]);
 };
 

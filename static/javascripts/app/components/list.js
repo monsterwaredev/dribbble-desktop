@@ -27,15 +27,20 @@ List.prototype.view = function() {
                 'component-list',
                 'list-title'
             ].join(' ')
-        }, this.get('name')) : undefined),
+        }, this.get('name').toUpperCase()) : undefined),
         ((typeof this.get('items') === 'object' && this.get('items') instanceof Array && this.get('items').length > 0) ? m('ul', {
             class: [
                 'dribbble-component',
                 'component-list',
-                'list-items-container'
+                'list-items-container',
+                this.get('bullet') === true ? 'list-items-bullet' : ''
             ].join(' ')
         }, [
-
+            this.get('items').map(function(item) {
+                if (typeof item === 'object' && item instanceof App.Components.ListItem) {
+                    return item.view.call(item, this.self());
+                }
+            }.bind(this))
         ]) : undefined)
     ]);
 };
