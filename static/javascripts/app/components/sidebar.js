@@ -56,8 +56,19 @@ Sidebar.prototype.controller = function(opts) {
             name: 'Buckets',
             items: [
                 new App.Components.ListItem({
+                    name: 'Logo'
+                }),
+                new App.Components.ListItem({
+                    name: 'Drawings'
+                }),
+                new App.Components.ListItem({
+                    name: 'Animations'
+                }),
+                new App.Components.ListItem({
+                    name: 'Websites'
                 })
-            ]
+            ],
+            bullet: true
         }));
     }
 };
@@ -71,7 +82,8 @@ Sidebar.prototype.view = function() {
         ].join(' ')
     }, [
         m.component(this.get('ui.component.newbutton')),
-        m.component(this.get('ui.component.filterinput'))
+        m.component(this.get('ui.component.filterinput')),
+        m.component(this.get('ui.component.buckets'))
     ]);
 };
 
