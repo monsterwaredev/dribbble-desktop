@@ -22,7 +22,6 @@ MainUI.prototype.controller = function() {
 MainUI.prototype.view = function() {
     return [
         m.component(this.get('ui.component.sidebar'))
-
     ];
 };
 

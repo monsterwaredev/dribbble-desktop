@@ -15,10 +15,6 @@ DropdownMenu.prototype.controller = function(opts) {
         this.component(opts);
         // Link stylesheet
         this.stylesheet(['components/dropdownmenu.css']);
-        // Check if for attribute exists
-        if (!this.get('for')) {
-            this.throw('Dropdown Element requires "for" attribute');
-        }
     }
 };
 
@@ -30,7 +26,6 @@ DropdownMenu.prototype.view = function() {
             'component-dropdownmenu',
             'dropdownmenu-element',
             'mdl-menu',
-            'mdl-menu--bottom-left',
             'mdl-js-menu',
             'mdl-js-ripple-effect'
         ].join(' '),

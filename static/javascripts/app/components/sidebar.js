@@ -24,7 +24,6 @@ Sidebar.prototype.controller = function(opts) {
                 'margin' : '10px'
             },
             menu: new App.Components.DropdownMenu({
-                for: this.id(),
                 items: [
                     new App.Components.SubMenu({
                         name: 'New Bucket',
@@ -50,14 +49,24 @@ Sidebar.prototype.controller = function(opts) {
                 }
             }
         }));
+        this.set('ui.component.filterinput', new App.Components.TextInput({
+            placeholder: 'Filter buckets'
+        }));
+        this.set('ui.component.buckets', new App.Components.List({
+        }));
     }
 };
 
 Sidebar.prototype.view = function() {
     return m('nav', {
-        id: this.id()
+        id: this.id(),
+        class: [
+            'dribbble-component',
+            'component-sidebar'
+        ].join(' ')
     }, [
-        m.component(this.get('ui.component.newbutton'))
+        m.component(this.get('ui.component.newbutton')),
+        m.component(this.get('ui.component.filterinput'))
     ]);
 };
 

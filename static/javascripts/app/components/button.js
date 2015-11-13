@@ -15,6 +15,14 @@ Button.prototype.controller = function(opts) {
         this.component(opts);
         // Link stylesheet
         this.stylesheet(['components/button.css']);
+    console.log('hei', this);
+    }
+};
+
+Button.prototype.component = function(opts) {
+    App.Common.View.prototype.component.call(this, opts);
+    if (typeof this.get('menu') === 'object' && this.get('menu') instanceof App.Components.DropdownMenu) {
+        this.get('menu').set('for', this.id());
     }
 };
 
