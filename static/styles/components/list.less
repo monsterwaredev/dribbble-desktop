@@ -1,0 +1,36 @@
+
+@import "../core/color.less";
+
+@component-input-default-font-size: 13px;
+
+.component-list {
+    font-family: "Montserrat";
+    font-size: @component-input-default-font-size;
+}
+
+.component-list.list-element {
+    padding: 4px 10px;
+    width: calc(~'100% - 20px');
+    color: #000;
+    border-color: #eee;
+}
+
+.component-list.list-title {
+    width: calc(~'100% - 20px');
+    padding: 0 10px;
+    margin:0;
+    color: rgba(0, 0, 0, 0.26);
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.list-items-container {
+    margin:0;
+    padding:15px 0;
+    list-style:none;
+    & li {
+        list-style:none;
+    }
+}
+
