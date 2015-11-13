@@ -5,13 +5,21 @@
 @component-button-default-offset: 15px;
 @component-button-default-material-offset: 25px;
 @component-button-default-padding: 3px 6px;
-@component-button-default-font-size: 13px;
+@component-button-default-font-size: 10px;
 
 .component-button {
     margin:0;
     padding:@component-button-default-padding;
     font-family: "Montserrat";
     font-size: @component-button-default-font-size;
+}
+
+.component-button.button-container {
+    position: relative;
+    & .mdl-menu__container {
+        margin-left: 16px;
+        margin-top: -16px;
+    }
 }
 
 .component-button.button-element {
@@ -42,3 +50,18 @@
     display: inline-block;
     vertical-align: middle;
 }
+
+.component-button .button-dropdown-arrow {
+    margin:0 6px 0 0;
+    padding: 0px;
+    width: @component-button-default-size;
+    height: @component-button-default-size;
+    background-color: @color-green;
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-mask-image: url('../../../images/icon_dropdown_arrow.svg');
+    -webkit-mask-repeat: no-repeat;
+    mask-image: url('../../../images/icon_dropdown_arrow.svg');
+    mask-repeat: no-repeat;
+}
+
