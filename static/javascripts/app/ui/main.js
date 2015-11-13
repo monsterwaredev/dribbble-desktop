@@ -15,7 +15,7 @@ MainUI.prototype.controller = function() {
     this.stylesheet(['core/application.css', 'ui/main.css']);
     // Create and modifiy element
     this.set('ui.component.sidebar', new App.Components.Sidebar({
-
+        'name': 'sidebar'
     }));
 };
 
