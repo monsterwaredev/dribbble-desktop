@@ -11,16 +11,31 @@ var View = function View(options) {
     }
     // Defined pre-default values
     this.attributes = {};
-    this.opts = {};
-    // Set options to `this.opts` object
+    // Set options to `this.attributes` object
     for (var i in options) {
-        this.opts[i] = options[i];
+        this.attributes[i] = options[i];
     }
-    this.patch();
+    if (typeof this.patch === 'function') {
+        this.patch();
+    }
+    if (typeof this.controller === 'function') {
+        this.controller();
+    }
     return this;
 };
 
 View.prototype.constructor = View;
+
+View.prototype.id = function() {
+    if (typeof this.get('_id') !== 'string' || (typeof this.get('_id') && this.get('_id').trim().length === 0)) {
+        this.set('_id', Math.random().toString(36).substring(7));
+    }
+    return this.get('_id');
+};
+
+View.prototype.self = function() {
+    return this;
+};
 
 View.prototype.get = function(key) {
     if (typeof key === 'string') {
@@ -108,6 +123,9 @@ View.prototype.patch = function() {
             }
             if (typeof this[target].stylesheet !== 'function') {
                 this[target].prototype.stylesheet = this.stylesheet.bind(this);
+            }
+            if (typeof this[target].self !== 'function') {
+                this[target].prototype.self = this.self.bind(this);
             }
         }
     }
