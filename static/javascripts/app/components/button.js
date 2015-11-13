@@ -15,7 +15,6 @@ Button.prototype.controller = function(opts) {
         this.component(opts);
         // Link stylesheet
         this.stylesheet(['components/button.css']);
-    console.log('hei', this);
     }
 };
 
