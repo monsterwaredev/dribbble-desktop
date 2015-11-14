@@ -16,6 +16,9 @@ Toolbar.prototype.controller = function(opts) {
         // Link stylesheet
         this.stylesheet(['components/toolbar.css']);
         // Create and modifiy element
+        this.set('ui.component.tabview', new App.Components.Tabview({
+            items: [ 'Following', 'Popular', 'Recent' ]
+        }));
     }
 };
 
@@ -26,7 +29,9 @@ Toolbar.prototype.view = function() {
             'component-toolbar',
             'toolbar-element'
         ].join(' ')
-    }, '');
+    }, [
+        m.component(this.get('ui.component.tabview'))
+    ]);
 };
 
 App.Components.Toolbar = Toolbar;
