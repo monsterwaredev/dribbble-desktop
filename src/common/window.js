@@ -25,7 +25,7 @@ var Window = function Window(options) {
         this.opts.template = 'default';
     }
     if (!this.opts.hasOwnProperty('transparent')) {
-        this.opts.transparent = true;
+        this.opts.transparent = false;
     }
     if (!this.opts.hasOwnProperty('frame')) {
         this.opts.frame = false;
