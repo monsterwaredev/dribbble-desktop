@@ -9,3 +9,17 @@
     -webkit-box-shadow: 0 0 2px rgba(0,0,0,0.1);
 }
 
+.component-sidebar .component-button.button-container {
+    border-bottom: 1px solid #222;
+    background-color:#444;
+    position:relative;
+    &:after {
+        position:absolute;
+        top:0;
+        bottom:-1px;
+        right:-1px;
+        border-right: 1px solid #222;
+        content:'';
+    }
+}
+
