@@ -6,6 +6,8 @@
 @component-button-default-material-offset: 25px;
 @component-button-default-padding: 3px 6px;
 @component-button-default-font-size: 10px;
+@component-button-default-mask-color: @color-green;
+// @component-button-default-mask-color: #fff;
 
 .component-button {
     margin:0;
@@ -35,7 +37,7 @@
 
 .component-button.button-element {
     height: @component-button-default-size + @component-button-default-offset;
-    color: @color-green;
+    color: @component-button-default-mask-color;
     font-weight: bold;
     border:none;
     outline:none;
@@ -50,6 +52,7 @@
     display: inline-block;
     vertical-align: middle;
     letter-spacing: 2px;
+    text-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.7);
 }
 
 .component-button .button-icon {
@@ -57,7 +60,7 @@
     padding: 0px;
     width: @component-button-default-size;
     height: @component-button-default-size;
-    background-color: @color-green;
+    background-color: @component-button-default-mask-color;
     display: inline-block;
     vertical-align: middle;
 }
@@ -67,7 +70,7 @@
     padding: 0px;
     width: @component-button-default-size;
     height: @component-button-default-size;
-    background-color: @color-green;
+    background-color: @component-button-default-mask-color;
     display: inline-block;
     vertical-align: middle;
     -webkit-mask-image: url('../../../images/icon_dropdown_arrow.svg');
