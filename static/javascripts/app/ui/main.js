@@ -17,11 +17,19 @@ MainUI.prototype.controller = function() {
     this.set('ui.component.sidebar', new App.Components.Sidebar({
         'name': 'sidebar'
     }));
+    this.set('ui.component.statusbar', new App.Components.Statusbar({
+        'name': 'statusbar'
+    }));
+    this.set('ui.component.toolbar', new App.Components.Toolbar({
+        'name': 'toolbar'
+    }));
 };
 
 MainUI.prototype.view = function() {
     return [
-        m.component(this.get('ui.component.sidebar'))
+        m.component(this.get('ui.component.sidebar')),
+        m.component(this.get('ui.component.statusbar')),
+        m.component(this.get('ui.component.toolbar'))
     ];
 };
 
