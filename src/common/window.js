@@ -9,14 +9,35 @@ var Window = function Window(options) {
         return new Window(options);
     }
     Base.call(this, options);
+    if (!this.opts.hasOwnProperty('minWidth')) {
+        this.opts.minWidth = 1000;
+    }
+    if (!this.opts.hasOwnProperty('minHeight')) {
+        this.opts.minHeight = 600;
+    }
     if (!this.opts.hasOwnProperty('width')) {
-        this.opts.width = 800;
+        this.opts.width = 1000;
     }
     if (!this.opts.hasOwnProperty('height')) {
         this.opts.height = 600;
     }
     if (!this.opts.hasOwnProperty('template')) {
         this.opts.template = 'default';
+    }
+    if (!this.opts.hasOwnProperty('transparent')) {
+        this.opts.transparent = true;
+    }
+    if (!this.opts.hasOwnProperty('frame')) {
+        this.opts.frame = false;
+    }
+    if (!this.opts.hasOwnProperty('fullscreen')) {
+        this.opts.fullscreen = false;
+    }
+    if (!this.opts.hasOwnProperty('resizable')) {
+        this.opts.resizable = true;
+    }
+    if (!this.opts.hasOwnProperty('center')) {
+        this.opts.center = true;
     }
     // Set debugging mode
     this.set('debugging', false);
