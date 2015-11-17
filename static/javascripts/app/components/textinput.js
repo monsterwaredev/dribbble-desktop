@@ -27,6 +27,7 @@ TextInput.prototype.placeholder = function() {
 
 TextInput.prototype.view = function() {
     return m('div', {
+        config: this.instance().autoconfig.bind(this.instance()),
         class: 'mdl-textfield mdl-js-textfield mdl-textfield--floating-label'
     }, [
         m('input', {

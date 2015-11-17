@@ -27,6 +27,7 @@ Button.prototype.component = function(opts) {
 
 Button.prototype.view = function() {
     return m('div', {
+        config: this.instance().autoconfig.bind(this.instance()),
         class: 'component-button button-container'
     }, [
         m('button', {

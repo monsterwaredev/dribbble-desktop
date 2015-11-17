@@ -20,6 +20,7 @@ SubMenu.prototype.controller = function(opts) {
 
 SubMenu.prototype.view = function() {
     return m('li', {
+        config: this.instance().autoconfig.bind(this.instance()),
         id: this.id(),
         class: [
             'dribbble-component',

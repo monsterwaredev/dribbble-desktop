@@ -21,6 +21,7 @@ Statusbar.prototype.controller = function(opts) {
 
 Statusbar.prototype.view = function() {
     return m('div', {
+        config: this.instance().autoconfig.bind(this.instance()),
         class: [
             'dribbble-component',
             'component-statusbar',

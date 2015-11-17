@@ -21,6 +21,7 @@ Control.prototype.controller = function(opts) {
 
 Control.prototype.view = function() {
     return m('div', {
+        config: this.instance().autoconfig.bind(this.instance()),
         class: [
             'dribbble-component',
             'component-control',

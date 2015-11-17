@@ -75,6 +75,7 @@ Sidebar.prototype.controller = function(opts) {
 
 Sidebar.prototype.view = function() {
     return m('nav', {
+        config: this.instance().autoconfig.bind(this.instance()),
         id: this.id(),
         class: [
             'dribbble-component',

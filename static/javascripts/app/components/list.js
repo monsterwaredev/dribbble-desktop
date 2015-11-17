@@ -20,7 +20,9 @@ List.prototype.controller = function(opts) {
 };
 
 List.prototype.view = function() {
-    return m('div', [
+    return m('div', {
+        config: this.instance().autoconfig.bind(this.instance())
+    }, [
         ((typeof this.get('name') === 'string' && this.get('name').trim().length > 0) ? m('h5', {
             class: [
                 'dribbble-component',

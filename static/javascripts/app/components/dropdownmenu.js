@@ -20,6 +20,7 @@ DropdownMenu.prototype.controller = function(opts) {
 
 DropdownMenu.prototype.view = function() {
     return m('ul', {
+        config: this.instance().autoconfig.bind(this.instance()),
         id: this.id(),
         class: [
             'dribbble-component',

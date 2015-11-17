@@ -21,6 +21,7 @@ ListItem.prototype.controller = function(opts) {
 
 ListItem.prototype.view = function() {
     return m('li', {
+        config: this.instance().autoconfig.bind(this.instance()),
         class: [
             'dribbble-component',
             'component-listitem',

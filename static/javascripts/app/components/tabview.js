@@ -22,6 +22,7 @@ Tabview.prototype.controller = function(opts) {
 
 Tabview.prototype.view = function() {
     return m('div', {
+        config: this.instance().autoconfig.bind(this.instance()),
         class: [
             'dribbble-component',
             'component-tabview',

@@ -24,6 +24,7 @@ Toolbar.prototype.controller = function(opts) {
 
 Toolbar.prototype.view = function() {
     return m('div', {
+        config: this.instance().autoconfig.bind(this.instance()),
         class: [
             'dribbble-component',
             'component-toolbar',
