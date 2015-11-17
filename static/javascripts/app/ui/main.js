@@ -43,7 +43,7 @@ MainUI.prototype.unload = function() {
     // remove listeners from render process
     this.off('shots', ui._retrieveShots.bind(ui));
     // default action for unload
-    View.prototype.unload.call(this);
+    App.Common.View.prototype.unload.call(this);
 };
 
 MainUI.prototype._retrieveShots = function(event, err, res) {
