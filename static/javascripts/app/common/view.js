@@ -30,6 +30,12 @@ var View = function View(options) {
     return this;
 };
 
+View.EVENT = {
+    ATTRIBUTE_CHANGED: 'change',
+    ATTRIBUTE_DELETED: 'delete',
+    ATTRIBUTE_CREATED: 'create'
+};
+
 View.prototype.constructor = View;
 
 View.prototype.id = function() {
@@ -65,6 +71,7 @@ View.prototype.set = function(key, value) {
     }
     if (typeof key === 'string') {
         this.attributes[key] = value;
+        // this.emit(
     }
     return this;
 };
@@ -88,6 +95,11 @@ View.prototype.append = function(key, value) {
             this.attributes[key] = '';
         }
         this.attributes[key] += value;
+    } else if (typeof key === 'string' && typeof value === 'object' && value instanceof Array) {
+        if (!(typeof this.attributes[key] === 'object' && this.attributes[key] instanceof Array)) {
+            this.attributes[key] = [];
+        }
+        Array.prototype.push.apply(this.attributes[key], value);
     }
     return this.attributes[key];
 };
