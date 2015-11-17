@@ -24,8 +24,11 @@ MainUI.prototype.controller = function() {
         this.set('ui.component.toolbar', new App.Components.Toolbar({
             'name': 'toolbar'
         }));
+        this.set('ui.component.gallery', new App.Components.Grid({
+            items: []
+        }));
         // listen to main process events
-        this.on('shots', ui._retrieveShots.bind(ui));
+        this.register('shots', ui._retrieveShots.bind(ui));
     }
 };
 
@@ -33,7 +36,8 @@ MainUI.prototype.view = function() {
     return [
         m.component(this.get('ui.component.sidebar')),
         m.component(this.get('ui.component.statusbar')),
-        m.component(this.get('ui.component.toolbar'))
+        m.component(this.get('ui.component.toolbar')),
+        m.component(this.get('ui.component.gallery'))
     ];
 };
 
@@ -41,13 +45,19 @@ MainUI.prototype.unload = function() {
     // get ui "MainUI" instance
     var ui = this.instance();
     // remove listeners from render process
-    this.off('shots', ui._retrieveShots.bind(ui));
+    this.unregister('shots', ui._retrieveShots.bind(ui));
     // default action for unload
     App.Common.View.prototype.unload.call(this);
 };
 
 MainUI.prototype._retrieveShots = function(event, err, res) {
-    console.log(err, res);
+    if (err) {
+        this.log(err);
+    } else {
+        this.get('ui.component.gallery').append('items', res.map(function(item) {
+            return new App.Components.GridItem(item);
+        }));
+    }
 };
 
 App.UI.MainUI = MainUI;
