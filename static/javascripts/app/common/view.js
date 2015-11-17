@@ -11,18 +11,56 @@ var View = function View(options) {
     }
     // Defined pre-default values
     this.attributes = {};
-    this.opts = {};
-    // Set options to `this.opts` object
+    // Set options to `this.attributes` object
     for (var i in options) {
-        this.opts[i] = options[i];
+        this.attributes[i] = options[i];
     }
-    this.patch();
+    // Set debugging mode
+    this.set('debugging', true);
+    // Set intialized status
+    this.set('initialized', false);
+    // Patch view
+    if (typeof this.patch === 'function') {
+        this.patch();
+    }
+    // Return self object
+    if (typeof this.controller === 'function') {
+        this.controller();
+    }
+    EventEmitter.call(this);
     return this;
 };
 
+View.EVENT = {
+    ATTRIBUTE_CHANGED: 'change',
+    ATTRIBUTE_DELETED: 'delete',
+    ATTRIBUTE_CREATED: 'create'
+};
+
+View.prototype = Object.create(EventEmitter.prototype);
 View.prototype.constructor = View;
 
+View.prototype.id = function() {
+    if (!(this instanceof View)) {
+        View.prototype.throw.call(this, 'NOT_VIEW_INSTANCE');
+    }
+    if (typeof this.get('_id') !== 'string' || (typeof this.get('_id') && this.get('_id').trim().length === 0)) {
+        this.set('_id', Math.random().toString(36).substring(7));
+    }
+    return this.get('_id');
+};
+
+View.prototype.self = View.prototype.instance = function() {
+    if (!(this instanceof View)) {
+        View.prototype.throw.call(this, 'NOT_VIEW_INSTANCE');
+    }
+    return this;
+};
+
 View.prototype.get = function(key) {
+    if (!(this instanceof View)) {
+        View.prototype.throw.call(this, 'NOT_VIEW_INSTANCE');
+    }
     if (typeof key === 'string') {
         return this.attributes[key];
     }
@@ -30,10 +68,62 @@ View.prototype.get = function(key) {
 };
 
 View.prototype.set = function(key, value) {
+    if (!(this instanceof View)) {
+        View.prototype.throw.call(this, 'NOT_VIEW_INSTANCE');
+    }
     if (typeof key === 'string') {
         this.attributes[key] = value;
+        this.instance().emit(View.EVENT.ATTRIBUTE_CREATED, key, this.attributes[key]);
     }
     return this;
+};
+
+View.prototype.unset = function(key) {
+    if (!(this instanceof View)) {
+        View.prototype.throw.call(this, 'NOT_VIEW_INSTANCE');
+    }
+    if (typeof key === 'string') {
+        delete this.attributes[key];
+    }
+    this.instance().emit(View.EVENT.ATTRIBUTE_DELETED, key, this.attributes[key]);
+    return this;
+};
+
+View.prototype.append = function(key, value) {
+    if (!(this instanceof View)) {
+        View.prototype.throw.call(this, 'NOT_VIEW_INSTANCE');
+    }
+    var previous;
+    if (typeof key === 'string' && typeof value === 'string') {
+        if (typeof this.attributes[key] !== 'string') {
+            this.attributes[key] = '';
+        }
+        this.attributes[key] += value;
+        this.instance().emit(View.EVENT.ATTRIBUTE_CHANGED, key, this.attributes[key]);
+    } else if (typeof key === 'string' && typeof value === 'object' && value instanceof Array) {
+        if (!(typeof this.attributes[key] === 'object' && this.attributes[key] instanceof Array)) {
+            this.attributes[key] = [];
+        }
+        Array.prototype.push.apply(this.attributes[key], value);
+        this.instance().emit(View.EVENT.ATTRIBUTE_CHANGED, key, this.attributes[key]);
+    }
+    return this.attributes[key];
+};
+
+View.prototype.register = function(event, cb) {
+    require('electron').ipcRenderer.on(event, cb.bind(this));
+};
+
+View.prototype.unregister = View.prototype.removeListener = function(event, cb) {
+    require('electron').ipcRenderer.removeListener(event, cb.bind(this));
+};
+
+View.prototype.send = function(event) {
+    var ipc = require('electron').ipcRenderer;
+    if (typeof event !== 'string') {
+        this.throw('missing event name');
+    }
+    ipc.send.apply(ipc, arguments);
 };
 
 View.prototype.log = function(str) {
@@ -84,34 +174,16 @@ View.prototype.component = function(options) {
 
 View.prototype.patch = function() {
     // Patch targets
-    var targets = [
-        'controller',
-        'view'
-    ];
+    var targets = [ 'controller', 'view' ],
+        prototypes = Object.keys(View.prototype);
     for (var i = 0; i < targets.length; i++) {
         var target = targets[i];
         if (typeof this[target] === 'function') {
-            if (typeof this[target].get !== 'function') {
-                this[target].prototype.get = this.get.bind(this);
-            }
-            if (typeof this[target].set !== 'function') {
-                this[target].prototype.set = this.set.bind(this);
-            }
-            if (typeof this[target].log !== 'function') {
-                this[target].prototype.log = this.log.bind(this);
-            }
-            if (typeof this[target].throw !== 'function') {
-                this[target].prototype.throw = this.throw.bind(this);
-            }
-            if (typeof this[target].component !== 'function') {
-                this[target].prototype.component = this.component.bind(this);
-            }
-            if (typeof this[target].stylesheet !== 'function') {
-                this[target].prototype.stylesheet = this.stylesheet.bind(this);
+            for (var j = 0; j < prototypes.length; j++) {
+                this[target].prototype[prototypes[j]] = this[prototypes[j]].bind(this);
             }
         }
     }
-
 };
 
 View.prototype.stylesheet = function(list) {
@@ -135,6 +207,19 @@ View.prototype.stylesheet = function(list) {
             document.head.appendChild(link);
         }
     }
+};
+
+View.prototype.autoconfig = function(element, isInit, context) {
+    if (!(this instanceof View)) {
+        View.prototype.throw.call(this, 'NOT_VIEW_INSTANCE');
+    }
+    if (typeof this.unload === 'function') {
+        context.onunload = this.unload.call(this);
+    }
+};
+
+View.prototype.unload = function() {
+    this.set('initialized', false);
 };
 
 App.Common.View = View;

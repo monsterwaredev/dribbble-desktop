@@ -1,0 +1,31 @@
+
+@import "../core/color.less";
+
+@component-grid-default-font-size: 13px;
+
+.component-grid {
+    font-family: "Montserrat";
+    font-size: @component-grid-default-font-size;
+    -webkit-user-select: none;
+    -webkit-app-region: drag;
+}
+
+.component-grid.grid-element {
+    position: absolute;
+    top: 64px;
+    left: 191px;
+    width: calc(~'100vw - 191px');
+    height: calc(~'100vh - 94px');
+    overflow: hidden;
+}
+
+.component-grid.grid-list {
+    margin:20px auto;
+    padding:0;
+    display:block;
+    width: calc(~'100% - 40px');
+    height: calc(~'100vh - 94px');
+    // overflow-y: auto;
+    overflow:hidden;
+    list-style:none;
+}

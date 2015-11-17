@@ -5,7 +5,9 @@
 @component-button-default-offset: 15px;
 @component-button-default-material-offset: 25px;
 @component-button-default-padding: 3px 6px;
-@component-button-default-font-size: 13px;
+@component-button-default-font-size: 10px;
+@component-button-default-mask-color: @color-green;
+// @component-button-default-mask-color: #fff;
 
 .component-button {
     margin:0;
@@ -14,9 +16,28 @@
     font-size: @component-button-default-font-size;
 }
 
+.component-button.button-container {
+    box-sizing: border-box;
+    position: relative;
+    color: white;
+    height: 64px;
+    width: 100%;
+    padding:0;
+    border-bottom: 1px solid #fafafa;
+}
+
+.component-button.button-wrapper {
+    box-sizing: border-box;
+    position: absolute;
+    & .mdl-menu__container {
+        margin-left: 16px;
+        margin-top: -16px;
+    }
+}
+
 .component-button.button-element {
     height: @component-button-default-size + @component-button-default-offset;
-    color: @color-green;
+    color: @component-button-default-mask-color;
     font-weight: bold;
     border:none;
     outline:none;
@@ -31,6 +52,7 @@
     display: inline-block;
     vertical-align: middle;
     letter-spacing: 2px;
+    text-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.4);
 }
 
 .component-button .button-icon {
@@ -38,7 +60,22 @@
     padding: 0px;
     width: @component-button-default-size;
     height: @component-button-default-size;
-    background-color: @color-green;
+    background-color: @component-button-default-mask-color;
     display: inline-block;
     vertical-align: middle;
 }
+
+.component-button .button-dropdown-arrow {
+    margin:0 6px 0 0;
+    padding: 0px;
+    width: @component-button-default-size;
+    height: @component-button-default-size;
+    background-color: @component-button-default-mask-color;
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-mask-image: url('../../../images/icon_dropdown_arrow.svg');
+    -webkit-mask-repeat: no-repeat;
+    mask-image: url('../../../images/icon_dropdown_arrow.svg');
+    mask-repeat: no-repeat;
+}
+

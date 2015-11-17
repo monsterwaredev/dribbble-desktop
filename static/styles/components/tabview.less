@@ -1,0 +1,46 @@
+
+@import "../core/color.less";
+
+@component-tabview-default-font-size: 10px;
+@component-tabview-default-width: 110px;
+
+.component-tabview {
+    height: 100%;
+    font-family: "Montserrat";
+    font-size: @component-tabview-default-font-size;
+}
+
+.component-tabview.tabview-element {
+    // border-right: 1px solid #D9E0E0;
+    background-color: transparent;
+    margin:0 auto;
+}
+
+.component-tabview.tabview-container,
+.component-tabview.tabview-item {
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+
+.component-tabview.tabview-item {
+    display: inline-block;
+    width: @component-tabview-default-width;
+    &.item-selected {
+        & .tabview-button {
+            border-bottom-color: #fd498b;
+            color: #fd498b;
+        }
+    }
+}
+
+.component-tabview.tabview-button {
+    font-weight: bold;
+    letter-spacing: 1px;
+    width: @component-tabview-default-width;
+    color: #bbb;
+    text-align: center;
+    text-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.4);
+    border-bottom: 2px solid transparent;
+}
+
