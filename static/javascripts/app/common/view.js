@@ -27,6 +27,7 @@ var View = function View(options) {
     if (typeof this.controller === 'function') {
         this.controller();
     }
+    EventEmitter.call(this);
     return this;
 };
 
@@ -36,6 +37,7 @@ View.EVENT = {
     ATTRIBUTE_CREATED: 'create'
 };
 
+View.prototype = Object.create(EventEmitter.prototype);
 View.prototype.constructor = View;
 
 View.prototype.id = function() {
@@ -71,7 +73,7 @@ View.prototype.set = function(key, value) {
     }
     if (typeof key === 'string') {
         this.attributes[key] = value;
-        // this.emit(
+        this.instance().emit(View.EVENT.ATTRIBUTE_CREATED, key, this.attributes[key]);
     }
     return this;
 };
@@ -83,6 +85,7 @@ View.prototype.unset = function(key) {
     if (typeof key === 'string') {
         delete this.attributes[key];
     }
+    this.instance().emit(View.EVENT.ATTRIBUTE_DELETED, key, this.attributes[key]);
     return this;
 };
 
@@ -90,37 +93,38 @@ View.prototype.append = function(key, value) {
     if (!(this instanceof View)) {
         View.prototype.throw.call(this, 'NOT_VIEW_INSTANCE');
     }
+    var previous;
     if (typeof key === 'string' && typeof value === 'string') {
         if (typeof this.attributes[key] !== 'string') {
             this.attributes[key] = '';
         }
         this.attributes[key] += value;
+        this.instance().emit(View.EVENT.ATTRIBUTE_CHANGED, key, this.attributes[key]);
     } else if (typeof key === 'string' && typeof value === 'object' && value instanceof Array) {
         if (!(typeof this.attributes[key] === 'object' && this.attributes[key] instanceof Array)) {
             this.attributes[key] = [];
         }
         Array.prototype.push.apply(this.attributes[key], value);
+        this.instance().emit(View.EVENT.ATTRIBUTE_CHANGED, key, this.attributes[key]);
     }
     return this.attributes[key];
 };
 
-View.prototype.on = function(event, cb) {
+View.prototype.register = function(event, cb) {
     require('electron').ipcRenderer.on(event, cb.bind(this));
 };
 
-View.prototype.off = View.prototype.removeListener = function(event, cb) {
+View.prototype.unregister = View.prototype.removeListener = function(event, cb) {
     require('electron').ipcRenderer.removeListener(event, cb.bind(this));
 };
 
-View.prototype.emit = function(event) {
+View.prototype.send = function(event) {
     var ipc = require('electron').ipcRenderer;
     if (typeof event !== 'string') {
         this.throw('missing event name');
     }
     ipc.send.apply(ipc, arguments);
 };
-
-View.prototype.send = View.prototype.emit;
 
 View.prototype.log = function(str) {
     if (this.get('debugging') === true) {
