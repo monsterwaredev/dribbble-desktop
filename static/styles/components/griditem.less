@@ -1,0 +1,44 @@
+
+@import "../core/color.less";
+
+@component-griditem-default-font-size: 11px;
+
+.component-griditem {
+    font-family: "Montserrat";
+    font-size: @component-griditem-default-font-size;
+    -webkit-user-select: none;
+    -webkit-app-region: drag;
+}
+
+.component-griditem.griditem-element {
+    margin:10px;
+    position:relative;
+    width: 220px;
+    height: 251px;
+    overflow: hidden;
+    list-style:none;
+    background-color: #fff;
+    border-radius: 2px;
+    float:left;
+    -webkit-box-shadow: 0 0 2px rgba(0,0,0,0.1);
+}
+
+.component-griditem.griditem-image {
+    max-width: 220px;
+}
+
+.component-griditem.griditem-title {
+    margin:0;
+    padding:0;
+    font-family: "Montserrat";
+    font-size: @component-griditem-default-font-size;
+    background-color: #fefefe;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #888;
+    border-bottom: 1px solid #f6f6f6;
+    border-top: 1px solid rgba(0,0,0,0.06);
+    position: relative;
+    -webkit-box-shadow: 0 1px .5px rgba(0,0,0,0.02);
+}
