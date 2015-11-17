@@ -10,11 +10,11 @@ MainUI.prototype.constructor = MainUI;
 MainUI.prototype.controller = function() {
     var ui = this.instance();
     if (!this.get('initialized')) {
-        // Set item status as initialized
+        // set item status as initialized
         this.set('initialized', true);
-        // Link stylesheet
+        // link stylesheet
         this.stylesheet(['core/application.css', 'ui/main.css']);
-        // Create and modifiy element
+        // create and modifiy element
         this.set('ui.component.sidebar', new App.Components.Sidebar({
             'name': 'sidebar'
         }));
@@ -24,6 +24,7 @@ MainUI.prototype.controller = function() {
         this.set('ui.component.toolbar', new App.Components.Toolbar({
             'name': 'toolbar'
         }));
+        // listen to main process events
         this.on('shots', ui._retrieveShots.bind(ui));
     }
 };
@@ -37,8 +38,12 @@ MainUI.prototype.view = function() {
 };
 
 MainUI.prototype.unload = function() {
+    // get ui "MainUI" instance
     var ui = this.instance();
+    // remove listeners from render process
     this.off('shots', ui._retrieveShots.bind(ui));
+    // default action for unload
+    View.prototype.unload.call(this);
 };
 
 MainUI.prototype._retrieveShots = function(event, err, res) {
