@@ -15,7 +15,6 @@ List.prototype.controller = function(opts) {
         this.component(opts);
         // Link stylesheet
         this.stylesheet(['components/list.css']);
-        // Create and modifiy element
     }
 };
 
