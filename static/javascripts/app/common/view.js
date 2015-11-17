@@ -193,13 +193,17 @@ View.prototype.stylesheet = function(list) {
     }
 };
 
-View.prototype.autoconfig = function() {
+View.prototype.autoconfig = function(element, isInit, context) {
     if (!(this instanceof View)) {
         View.prototype.throw.call(this, 'NOT_VIEW_INSTANCE');
     }
     if (typeof this.unload === 'function') {
         context.onunload = this.unload.call(this);
     }
+};
+
+View.prototype.unload = function() {
+    this.set('initialized', false);
 };
 
 App.Common.View = View;
